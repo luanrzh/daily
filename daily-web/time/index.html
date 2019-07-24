@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <title>代办事项</title>
+    <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+</head>
+<body>
+<script>
+    $.post("http://localhost:8000/daily/time/findAll",function(result){
+        console.log(result);
+    })
+</script>
+</body>
+</html>
