@@ -10,5 +10,6 @@ spring:
     username: root
     password: root
 
-#mybatis:
-#  type-aliases-package: cn.dodaily.dailyserver
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

@@ -1,31 +1,48 @@
 package cn.dodaily.dailyserver.controller.time;
 
 import cn.dodaily.dailyserver.bean.time.Task;
-import cn.dodaily.dailyserver.controller.RS;
+import cn.dodaily.dailyserver.exception.NotFoundException;
 import cn.dodaily.dailyserver.service.time.TimeService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @CrossOrigin
 @RestController
+@RequestMapping("/time")
 public class TimeController {
     @Autowired
     private TimeService timeService;
 
-    @ResponseBody
-    @PostMapping("/time/findAll")
-    public RS findAllTask(){
-        return timeService.findAllTask();
+    @ApiOperation(value = "获取代办事项列表", notes = "获取代办事项列表")
+    @GetMapping("/tasks")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Task> getTaskList() {
+        return timeService.getTaskList();
     }
 
-    @PostMapping("/time/add")
-    public String addTask(Task task){
-        timeService.addTask(task);
-        return "增加代办事项成功";
+    @ApiOperation(value = "增加代办事项")
+    @PostMapping("/tasks")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Task addTask(Task task) {
+        return timeService.addTask(task);
     }
+
+    @ApiOperation(value = "修改代办事项")
+    @PutMapping("/tasks")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Task updateTask(Task task) throws NotFoundException {
+        return timeService.updateTask(task);
+    }
+
+    @ApiOperation(value = "删除代办事项")
+    @DeleteMapping("/tasks")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteTask(Task task) throws NotFoundException {
+        timeService.deleteTask(task);
+    }
+
 }
