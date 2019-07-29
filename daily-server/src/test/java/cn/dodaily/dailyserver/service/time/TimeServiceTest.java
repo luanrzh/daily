@@ -1,6 +1,8 @@
 package cn.dodaily.dailyserver.service.time;
 
 import cn.dodaily.dailyserver.bean.time.Task;
+import cn.dodaily.dailyserver.bean.time.TaskStep;
+import cn.dodaily.dailyserver.exception.DatabaseException;
 import cn.dodaily.dailyserver.exception.NotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,8 +30,8 @@ public class TimeServiceTest {
     }
 
     @Test
-    public void updateTask() throws NotFoundException {
-        Task updateTask = new Task(1, null, "update task", null, null, null);
+    public void updateTask() throws NotFoundException, DatabaseException {
+        Task updateTask = new Task(3, null, "update task", null, null, null);
         Object rs = service.updateTask(updateTask);
     }
 
@@ -37,5 +39,23 @@ public class TimeServiceTest {
     public void deleteTask() throws NotFoundException {
         Task deleteTask = new Task(3, null, null, null, null, null);
         service.deleteTask(deleteTask);
+    }
+
+    @Test
+    public void addTaskStep() throws DatabaseException {
+        TaskStep taskStep = new TaskStep(null, 3, null, "子任务1");
+        Object rs = service.addTaskStep(taskStep);
+    }
+
+    @Test
+    public void updateTaskStep() throws NotFoundException {
+        TaskStep taskStep = new TaskStep(21, 3, 1, "子任务3");
+        Object rs = service.updateTaskStep(taskStep);
+    }
+
+    @Test
+    public void deleteTaskStep() throws NotFoundException {
+        TaskStep taskStep = new TaskStep(21, null, null, null);
+        service.deleteTaskStep(taskStep);
     }
 }

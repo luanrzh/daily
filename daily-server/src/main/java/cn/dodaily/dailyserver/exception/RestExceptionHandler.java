@@ -14,4 +14,12 @@ public class RestExceptionHandler {
     public ErrorResult handleResourceNotFoundException(NotFoundException e) {
         return new ErrorResult(e.getCode(), e.getMessage());
     }
+
+    @ExceptionHandler(value = DatabaseException.class)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResult handleDatabaseOperationException(DatabaseException e) {
+        return new ErrorResult(e.getCode(), e.getMessage());
+    }
+
 }

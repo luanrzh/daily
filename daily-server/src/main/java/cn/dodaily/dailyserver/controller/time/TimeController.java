@@ -1,6 +1,7 @@
 package cn.dodaily.dailyserver.controller.time;
 
 import cn.dodaily.dailyserver.bean.time.Task;
+import cn.dodaily.dailyserver.exception.DatabaseException;
 import cn.dodaily.dailyserver.exception.NotFoundException;
 import cn.dodaily.dailyserver.service.time.TimeService;
 import io.swagger.annotations.ApiOperation;
@@ -34,7 +35,7 @@ public class TimeController {
     @ApiOperation(value = "修改代办事项")
     @PutMapping("/tasks")
     @ResponseStatus(HttpStatus.CREATED)
-    public Task updateTask(Task task) throws NotFoundException {
+    public Task updateTask(Task task) throws NotFoundException, DatabaseException {
         return timeService.updateTask(task);
     }
 

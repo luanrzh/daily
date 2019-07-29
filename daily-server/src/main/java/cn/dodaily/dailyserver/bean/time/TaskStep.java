@@ -11,11 +11,11 @@ import lombok.Setter;
 @NoArgsConstructor
 public class TaskStep {
     //id
-    private int id;
+    private Integer id;
     //任务id
-    private int taskId;
+    private Integer taskId;
     //状态（0:已创建 1:已完成）
-    private int status;
+    private Integer status;
     //内容
     private String content;
 }

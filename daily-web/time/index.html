@@ -1,15 +1,37 @@
 <!DOCTYPE html>
 <html lang="zh">
+
 <head>
     <meta charset="UTF-8">
     <title>代办事项</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
 </head>
+
 <body>
-<script>
-    $.post("http://localhost:8000/daily/time/findAll",function(result){
-        console.log(result);
-    })
-</script>
+    <table class="table">
+        <tr>
+            <th>序号</th>
+            <th>内容</th>
+            <th>创建时间</th>
+            <th>截至时间</th>
+            <th>状态</th>
+        </tr>
+    </table>
+    <script>
+        $.get("http://49.232.50.172:8000/daily/time/tasks", function (result) {
+            console.log(result.length)
+            for (var i = 0; i < result.length; i++) {
+                var elem = result[i];
+                var tr = "<tr>" + wrapTd(i + 1) + wrapTd(elem.content) + wrapTd(elem.createTime) + wrapTd(elem.deadlineTime) + wrapTd(elem.status) + "</tr>";
+                $("table").append(tr);
+            }
+        })
+        function wrapTd(x) {
+            return "<td>" + x + "</td>";
+        }
+    </script>
 </body>
+
 </html>

@@ -24,8 +24,4 @@ public interface TaskStepMapper {
 
     @Delete("DELETE FROM TASK_STEP WHERE ID = #{id}")
     int delete(int id);
-
-    @Delete("DELETE FROM TASK_STEP WHERE TASK_ID=#{taskId}")
-    int deleteAllByTaskId(int taskId);
-
 }
