@@ -4,7 +4,7 @@ import lombok.Getter;
 
 @Getter
 public enum ErrorResultEnum {
-    TaskNoFound(40401, "数据库中没有这条代办事项的记录");
+    TaskNoFound(40401, "数据库中没有此任务的记录");
     private Integer code;
     private String msg;
 

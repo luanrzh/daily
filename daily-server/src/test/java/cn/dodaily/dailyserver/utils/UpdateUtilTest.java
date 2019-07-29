@@ -13,8 +13,8 @@ public class UpdateUtilTest {
 
     @Test
     public void testFillNullToNew() {
-        Task oldTask = new Task(1, "content0", new Date(), 0);
-        Task newTask = new Task(1, null, null, 1);
+        Task oldTask = new Task(1, 0, "content0", new Date(), null, null);
+        Task newTask = new Task(1, 1, null, null, null, null);
         Task task = (Task) fillNullToNew(newTask, oldTask);
         Assert.assertEquals(task.getId(), newTask.getId());
         Assert.assertEquals(task.getContent(), oldTask.getContent());
@@ -24,8 +24,8 @@ public class UpdateUtilTest {
 
     @Test
     public void testFillNotNullToOld() {
-        Task oldTask = new Task(1, "content0", new Date(), 0);
-        Task newTask = new Task(1, null, null, 1);
+        Task oldTask = new Task(1, 0, "content0", new Date(), null, null);
+        Task newTask = new Task(1, 1, null, null, null, null);
         Task task = (Task) fillNotNullToOld(newTask, oldTask);
         Assert.assertEquals(task.getId(), oldTask.getId());
         Assert.assertEquals(task.getContent(), oldTask.getContent());

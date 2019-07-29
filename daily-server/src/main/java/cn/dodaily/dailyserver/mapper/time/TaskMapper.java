@@ -7,21 +7,31 @@ import java.util.List;
 
 @Mapper
 public interface TaskMapper {
-    @Select("SELECT * FROM task")
-    @Results(@Result(property = "createTime", column = "create_time"))
+    @Select("SELECT * FROM TASK")
+    @Results({
+            @Result(column = "CREATE_TIME", property = "createTime"),
+            @Result(column = "DEADLINE_TIME", property = "deadlineTime"),
+            @Result(column = "ID", property = "id"),
+            @Result(column = "ID", property = "taskSteps",
+                    many = @Many(select = "cn.dodaily.dailyserver.mapper.time.TaskStepMapper.selectAllByTaskId"))})
     List<Task> selectAll();
 
-    @Select("SELECT * FROM task WHERE id = #{id}")
-    @Results(@Result(property = "createTime", column = "create_time"))
+    @Select("SELECT * FROM TASK WHERE ID = #{id}")
+    @Results({
+            @Result(column = "CREATE_TIME", property = "createTime"),
+            @Result(column = "DEADLINE_TIME", property = "deadlineTime"),
+            @Result(column = "ID", property = "id"),
+            @Result(column = "ID", property = "taskSteps",
+                    many = @Many(select = "cn.dodaily.dailyserver.mapper.time.TaskStepMapper.selectAllByTaskId"))})
     Task select(int id);
 
-    @Insert("INSERT INTO task(content,create_time,status) VALUES(#{content}, #{createTime}, #{status})")
+    @Insert("INSERT INTO TASK(CONTENT,CREATE_TIME) VALUES(#{content}, #{createTime})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int insert(Task task);
 
-    @Update("UPDATE task set content=#{content},create_time=#{createTime},status=#{status} WHERE id=#{id}")
+    @Update("UPDATE TASK SET CONTENT=#{content},STATUS=#{status}, DEADLINE_TIME=#{deadlineTime} WHERE ID=#{id}")
     int update(Task task);
 
-    @Delete("DELETE FROM task WHERE id=#{id}")
+    @Delete("DELETE FROM TASK WHERE ID=#{id}")
     int delete(int id);
 }

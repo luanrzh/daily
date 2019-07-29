@@ -23,19 +23,19 @@ public class TimeServiceTest {
 
     @Test
     public void addTask() {
-        Task addTask = new Task(null, "task", new Date(), 0);
+        Task addTask = new Task(null, null, "task", new Date(), null, null);
         Object rs = service.addTask(addTask);
     }
 
     @Test
     public void updateTask() throws NotFoundException {
-        Task updateTask = new Task(12, "update task", null, 0);
+        Task updateTask = new Task(1, null, "update task", null, null, null);
         Object rs = service.updateTask(updateTask);
     }
 
     @Test
     public void deleteTask() throws NotFoundException {
-        Task deleteTask = new Task(12, null, null, null);
+        Task deleteTask = new Task(3, null, null, null, null, null);
         service.deleteTask(deleteTask);
     }
 }

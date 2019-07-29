@@ -4,7 +4,6 @@ import com.google.common.collect.Sets;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
-import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.spi.DocumentationType;
@@ -17,19 +16,18 @@ public class SwaggerConf {
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .protocols(Sets.newHashSet("http")) //协议，http或https
+                .protocols(Sets.newHashSet("http"))
                 .apiInfo(apiInfo())
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("cn.dodaily.dailyserver.controller")) //扫描controller定义
-                .paths(PathSelectors.any())
+                .apis(RequestHandlerSelectors.basePackage("cn.dodaily.dailyserver.controller"))
                 .build();
     }
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("REST接口定义")
+                .title("Daily接口API")
                 .version("1.0")
-                .description("用于测试RESTful API")
+                .description("Daily接口API测试")
                 .build();
     }
 }
