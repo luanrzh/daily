@@ -25,6 +25,7 @@ public class Task implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh", timezone = "GMT+8")
     private Date createTime;
     //截至时间
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", locale = "zh", timezone = "GMT+8")
     private Date deadlineTime;
     //任务步骤列表
     private List<TaskStep> taskSteps;

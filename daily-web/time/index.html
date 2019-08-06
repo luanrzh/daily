@@ -4,33 +4,47 @@
 <head>
     <meta charset="UTF-8">
     <title>代办事项</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
-        integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
     <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.js"></script>
+    <style>
+        .status-created {
+            color: black;
+        }
+
+        .status-finished {
+            color: gray;
+            text-decoration: line-through;
+        }
+    </style>
 </head>
 
 <body>
-    <table class="table">
-        <tr>
-            <th>序号</th>
-            <th>内容</th>
-            <th>创建时间</th>
-            <th>截至时间</th>
-            <th>状态</th>
-        </tr>
-    </table>
+    <ul class="ul"></ul>
     <script>
-        $.get("http://49.232.50.172:8000/daily/time/tasks", function (result) {
-            console.log(result.length)
+        $.get("http://api.dodaily.cn/time/tasks", function (result) {
+            console.log(result);
             for (var i = 0; i < result.length; i++) {
                 var elem = result[i];
-                var tr = "<tr>" + wrapTd(i + 1) + wrapTd(elem.content) + wrapTd(elem.createTime) + wrapTd(elem.deadlineTime) + wrapTd(elem.status) + "</tr>";
-                $("table").append(tr);
+                var statusClass;
+                if (elem.status == 0) {
+                    statusClass = " class = 'status-created'";
+                }
+                else if (elem.status == 1) {
+                    statusClass = " class = 'status-finished'";
+                }
+                var taskSteps = elem.taskSteps;
+                var taskStepsString = "";
+
+                for (var j = 0; j < taskSteps.length; j++) {
+                    taskStepsString += taskSteps[j].content + ",";
+                }
+                if(taskSteps.length>0){
+                    taskStepsString = taskStepsString.substring(0, taskStepsString.length - 1);
+                    taskStepsString = "( "+taskStepsString +")";
+                }
+                var li = "<li" + statusClass + ">" + elem.content + taskStepsString + "</li>";
+                $("ul").append(li);
             }
         })
-        function wrapTd(x) {
-            return "<td>" + x + "</td>";
-        }
     </script>
 </body>
 
