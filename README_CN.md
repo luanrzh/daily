@@ -12,4 +12,6 @@
 - Spring boot
 - vue
 
-开始吧！
+# 目录结构
+- `daily-api` : 后端API，提供一套标准的restful接口，给所有的前端应用提供服务（包括PC前端Web应用，手机前端Web应用，Android原生手机应用）
+- `daily-frontend` : PC前端

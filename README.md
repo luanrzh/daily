@@ -12,4 +12,7 @@ As a personal habit management system integrating to-do list, real-time bookkeep
 - Spring boot
 - vue
 
-Just do it!
+# Directory structure
+- `daily-api` : Back-end apis, which provide a standard set of restful interfaces that serve all front-end applications (including PC front-end Web applications, mobile front-end Web applications, Android native mobile applications)
+- `daily-frontend` : Front-end web app for pc
+
