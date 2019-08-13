@@ -94,12 +94,6 @@ export default {
         ]
       }
     };
-  },
-  created: function() {
-    //页面首次加载或刷新时,跳转到‘我的一天’
-    if (!window.location.href.match("/time/todayTask")) {
-      this.$router.push("/time/todayTask");
-    }
   }
 };
 </script>
