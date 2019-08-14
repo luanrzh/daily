@@ -26,25 +26,25 @@ public class TimeServiceTest {
     @Test
     public void addTask() {
         Task addTask = new Task(null, null, "task", new Date(), null, null);
-//        Object rs = service.addTask(addTask);
+        Object rs = service.addTask(addTask);
     }
 
     @Test
     public void updateTask() throws NotFoundException {
         Task updateTask = new Task(3, null, "update task", null, null, null);
-//        Object rs = service.updateTask(updateTask);
+        Object rs = service.updateTask(updateTask);
     }
 
     @Test
     public void deleteTask() throws NotFoundException {
         Task deleteTask = new Task(3, null, null, null, null, null);
-//        service.deleteTask(deleteTask);
+        service.deleteTask(deleteTask);
     }
 
     @Test
     public void addTaskStep() throws DatabaseException {
         TaskStep taskStep = new TaskStep(null, 3, null, "子任务1");
-//        Object rs = service.addTaskStep(taskStep);
+        Object rs = service.addTaskStep(taskStep);
     }
 
     @Test
@@ -56,6 +56,6 @@ public class TimeServiceTest {
     @Test
     public void deleteTaskStep() throws NotFoundException {
         TaskStep taskStep = new TaskStep(21, null, null, null);
-//        service.deleteTaskStep(taskStep);
+        service.deleteTaskStep(taskStep);
     }
 }
