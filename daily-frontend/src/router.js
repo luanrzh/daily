@@ -12,7 +12,6 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
-      redirect : 'time/todayTask',
       children: [
         {
           path: 'time/todayTask',
@@ -23,15 +22,23 @@ export default new Router({
           component: () => import(/* webpackChunkName: "allTask" */ '@/components/time/AllTask.vue')
         },
         {
-          path: '/unfinished/*',
+          path: '/money/*',
+          component: () => import(/* webpackChunkName: "Unfinished" */ '@/components/Unfinished.vue')
+        },
+        {
+          path: '/knowledge/*',
           component: () => import(/* webpackChunkName: "Unfinished" */ '@/components/Unfinished.vue')
         }
       ]
     },
     {
       path: '/login',
-      name: 'Login',
+      name: 'login',
       component: () => import(/* webpackChunkName: "login" */ './views/Login.vue')
+    }
+    , {
+      path: '*',
+      redirect: '/'
     }
   ]
 })

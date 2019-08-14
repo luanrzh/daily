@@ -1,6 +1,7 @@
 <template>
   <div>
-    <el-form :model="loginForm" ref="loginForm" :rules="rules" v-loading="loading" class="login-container">
+    <el-form :model="loginForm" ref="loginForm" :rules="rules" v-loading="loading" class="login-container"
+    >
       <h3 class="login-title">用户登录</h3>
       <el-form-item prop="username">
         <el-input type="text" v-model="loginForm.username" placeholder="帐号"></el-input>
@@ -19,6 +20,7 @@
 <script>
 import { login } from "@/api/api";
 import { Message } from "element-ui";
+import store from "@/store";
 
 export default {
   data() {
@@ -46,12 +48,13 @@ export default {
             response => {
               _this.loading = false;
               if (response && response.status == 200) {
-                var data = response.data;
-                if (data.username) {
+                var user = response.data;
+                if (user.username) {
                   Message.success("登录成功");
+                  store.login(user);
                   _this.$router.replace({ name: "home" });
                 } else {
-                  Message.error("登录失败");
+                  Message.error("登录失败（用户名或密码错误）");
                 }
               }
             }

@@ -4,18 +4,18 @@
       <el-header class="home-header">
         <div class="home_header_title">日常DAILY</div>
         <div class="home_header_user">
-          <el-dropdown>
+          <el-dropdown @command="handleCommand">
             <span style="color: white;">栾睿智</span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item>个人中心</el-dropdown-item>
-              <el-dropdown-item>退出登录</el-dropdown-item>
+              <el-dropdown-item command="logout">退出登录</el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </div>
       </el-header>
       <el-container>
         <el-aside class="home-aside" width="200px">
-          <el-menu router :default-openeds="menu.default_openeds">
+          <el-menu router :default-openeds="menu.default_openeds" default-active="0">
             <el-submenu v-for="(submenu,index) in menu.submenus" :key="index" :index="index+''">
               <template slot="title">
                 <i :class="submenu.title_ico_class"></i>
@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import store from "@/store";
 export default {
   name: "home",
   data() {
@@ -65,15 +66,15 @@ export default {
             menuitems: [
               {
                 name: "资金流动",
-                path: "/unfinished/1"
+                path: "/money/1"
               },
               {
                 name: "账户资产",
-                path: "/unfinished/2"
+                path: "/money/2"
               },
               {
                 name: "统计报表",
-                path: "/unfinished/3"
+                path: "/money/3"
               }
             ]
           },
@@ -83,17 +84,31 @@ export default {
             menuitems: [
               {
                 name: "博客列表",
-                path: "/unfinished/4"
+                path: "/knowledge/1"
               },
               {
                 name: "日记列表",
-                path: "/unfinished/5"
+                path: "/knowledge/2"
               }
             ]
           }
         ]
       }
     };
+  },
+  methods: {
+    handleCommand(command) {
+      if ("logout" == command) {
+        this.$confirm("确认退出登录吗？", "提示", {
+          confirmButtonText: "确认",
+          cancelButtonText: "取消",
+          type: "info"
+        }).then(() => {
+          store.logout();
+          this.$router.replace({ name: "login" });
+        });
+      }
+    }
   }
 };
 </script>
