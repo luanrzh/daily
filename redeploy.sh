@@ -22,4 +22,4 @@ echo -e "\n----------部署www.daily.cn----------"
 mv /root/daily/daily-frontend/dist/* $DAILY_FRONTEND_DIR
 echo -e "\n----------部署api.daily.cn----------"
 mv target/daily-api-0.0.1.jar $DAILY_API_DIR
-source /root/restart.sh
+source /root/daily/restart.sh
