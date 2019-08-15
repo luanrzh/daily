@@ -1,6 +1,7 @@
 DAILY_FRONTEND_DIR="/www/wwwroot/www.dodaily.cn/"
 DAILY_API_DIR="/www/wwwroot/api.dodaily.cn/"
 time=$(date "+%Y%m%d%H%M%S")
+echo -e"\n现在时间是：$(date)"
 BAK_DIR="/www/wwwroot/bak/$time"
 
 echo -e "\n----------更新github----------"
