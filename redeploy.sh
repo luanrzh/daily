@@ -1,7 +1,6 @@
 DAILY_FRONTEND_DIR="/www/wwwroot/www.dodaily.cn/"
 DAILY_API_DIR="/www/wwwroot/api.dodaily.cn/"
 time=$(date "+%Y%m%d%H%M%S")
-echo -e"\n现在时间是：$(date)"
 BAK_DIR="/www/wwwroot/bak/$time"
 
 echo -e "\n----------更新github----------"
@@ -24,3 +23,4 @@ mv /root/daily/daily-frontend/dist/* $DAILY_FRONTEND_DIR
 echo -e "\n----------部署api.daily.cn----------"
 mv target/daily-api-0.0.1.jar $DAILY_API_DIR
 source /root/daily/restart.sh
+echo -e "\n----------ALL DONE!----------"
