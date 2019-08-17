@@ -11,6 +11,7 @@ import cn.dodaily.api.utils.Constant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -32,6 +33,14 @@ public class TimeService {
         return taskMapper.selectAll();
     }
 
+    /**
+     * 查询今天的所有任务
+     *
+     * @return 任务集合
+     */
+    public List<Task> getTodayTaskList(){
+        return taskMapper.selectAllToday();
+    }
     /**
      * 增加任务
      *

@@ -24,6 +24,11 @@ public class TimeServiceTest {
     }
 
     @Test
+    public void getTodayTaskList(){
+        Object rs = service.getTodayTaskList();
+    }
+
+    @Test
     public void addTask() {
         Task addTask = new Task(null, null, "task", new Date(), null, null);
 //        Object rs = service.addTask(addTask);

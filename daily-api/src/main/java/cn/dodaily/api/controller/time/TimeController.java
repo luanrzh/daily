@@ -19,10 +19,17 @@ public class TimeController {
     private TimeService timeService;
 
     @ApiOperation(value = "获取代办事项列表", notes = "获取代办事项列表")
-    @GetMapping("/tasks")
+    @GetMapping("/tasks/all")
     @ResponseStatus(HttpStatus.OK)
     public List<Task> getTaskList() {
         return timeService.getTaskList();
+    }
+
+    @ApiOperation(value = "获取今日代办事项列表", notes = "获取今日代办事项列表")
+    @GetMapping("/tasks/today")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Task> getTodayTaskList() {
+        return timeService.getTodayTaskList();
     }
 
     @ApiOperation(value = "增加代办事项")
