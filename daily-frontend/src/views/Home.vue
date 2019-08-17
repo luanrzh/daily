@@ -5,7 +5,7 @@
         <div class="home_header_title">日常DAILY</div>
         <div class="home_header_user">
           <el-dropdown @command="handleCommand">
-            <span style="color: white;">栾睿智</span>
+            <span style="color: white;">{{user.username}}</span>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="logout">退出登录</el-dropdown-item>
             </el-dropdown-menu>
@@ -13,7 +13,7 @@
         </div>
       </el-header>
       <el-container>
-        <el-aside class="home-aside" width="200px">
+        <el-aside class="home-aside" width="auto">
           <el-menu router :default-openeds="menu.default_openeds" default-active="0">
             <el-submenu v-for="(submenu,index) in menu.submenus" :key="index" :index="index+''">
               <template slot="title">
@@ -92,7 +92,8 @@ export default {
             ]
           }
         ]
-      }
+      },
+      user: store.state.user
     };
   },
   methods: {
@@ -137,6 +138,8 @@ export default {
 
 .home-aside {
   background-color: white;
+  margin: 0;
+  padding: 0;
 }
 
 .home-main {
