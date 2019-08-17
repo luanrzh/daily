@@ -19,7 +19,6 @@
 
 <script>
 import { login } from "@/api/api";
-import { Message } from "element-ui";
 import store from "@/store";
 
 export default {
@@ -50,11 +49,11 @@ export default {
               if (response && response.status == 200) {
                 var user = response.data;
                 if (user.username) {
-                  Message.success("登录成功");
+                  _this.$message.success("登录成功");
                   store.login(user);
                   _this.$router.replace({ name: "home" });
                 } else {
-                  Message.error("登录失败（用户名或密码错误）");
+                  _this.$message.error("登录失败（用户名或密码错误）");
                 }
               }
             }
