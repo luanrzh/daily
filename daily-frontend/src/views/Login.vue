@@ -25,8 +25,8 @@ export default {
   data() {
     return {
       loginForm: {
-        username: "",
-        password: ""
+        username: "daily",
+        password: "daily"
       },
       rules: {
         username: [
