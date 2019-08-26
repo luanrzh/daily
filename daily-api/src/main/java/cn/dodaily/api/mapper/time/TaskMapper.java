@@ -16,7 +16,7 @@ public interface TaskMapper {
                     many = @Many(select = "cn.dodaily.api.mapper.time.TaskStepMapper.selectAllByTaskId"))})
     List<Task> selectAll();
 
-    @Select("SELECT * FROM TASK WHERE TO_DAYS(CREATE_TIME) = TO_DAYS(NOW())")
+    @Select("SELECT * FROM TASK WHERE STATUS = 0")
     @Results({
             @Result(column = "CREATE_TIME", property = "createTime"),
             @Result(column = "DEADLINE_TIME", property = "deadlineTime"),

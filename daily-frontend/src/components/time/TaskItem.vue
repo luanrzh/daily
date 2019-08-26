@@ -32,7 +32,7 @@
         </el-col>
       </el-row>
     </div>
-    <el-divider>创建于{{formatedCreatedDate}}</el-divider>
+    <el-divider>{{formatedDeadlineTime}}</el-divider>
   </el-card>
 </template>
 
@@ -40,8 +40,25 @@
 export default {
   props: ["task"],
   computed: {
-    formatedCreatedDate: function() {
-      return this.task.createTime.substring(11);
+    formatedDeadlineTime: function() {
+      var formatedString;
+      var deadlineTimeStr = this.task.deadlineTime;
+      if (deadlineTimeStr != null) {
+        var nowTime = new Date();
+        var deadlineTime = new Date(deadlineTimeStr);
+        var timeDiff = deadlineTime - nowTime;
+        timeDiff = timeDiff / 1000 / 60 / 60 / 24;
+        if (timeDiff < 0) {
+          formatedString = "已超期" + (-Math.ceil(timeDiff) + 1) + "天";
+        } else if (timeDiff < 1) {
+          formatedString = "预计今天完成";
+        } else if (timeDiff < 2) {
+          formatedString = "预计明天完成";
+        } else {
+          formatedString = "预计" + Math.ceil(timeDiff) + "天后完成";
+        }
+      }
+      return formatedString;
     }
   },
   methods: {
