@@ -19,6 +19,7 @@
             placeholder="选择日期时间"
             :picker-options="pickerOptions"
             suffix-icon="el-icon-date"
+            value-format="yyyy-MM-dd HH:mm:ss"
           ></el-date-picker>
         </el-form-item>
         <el-form-item>
@@ -35,6 +36,8 @@
 import { getTodayTaskList } from "@/api/api";
 import { addTask } from "@/api/api";
 import TaskItem from "./TaskItem";
+import store from "@/store";
+
 export default {
   name: "TodayTask",
   data: function() {
@@ -85,16 +88,11 @@ export default {
     doAddTask() {
       var task = {};
       task.content = this.addTaskForm.content;
-      var time = this.addTaskForm.deadlineTime;
-      var year = time.getFullYear();
-      var month = time.getMonth() + 1;
-      var date = time.getDate();
-      var hour = time.getHours();
-      var minute = time.getMinutes();
-      var second = time.getSeconds();
-      task.deadlineTime = year + "-" + month + "-" + date + " " + hour + ":" + minute + ":" +second;
+      task.deadlineTime = this.addTaskForm.deadlineTime;
+      task.userId = store.state.user.id;
       addTask(task).then(response => {
-        tasks.put(task);
+        this.isDrawerOpen = false;
+        this.tasks.push(response.data);
       });
     },
     resetAddTask() {

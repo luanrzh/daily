@@ -17,6 +17,8 @@ import java.util.List;
 public class Task implements Serializable {
     //id
     private Integer id;
+    //用户id
+    private Integer userId;
     //状态（0:已创建 1:已完成）
     private Integer status;
     //内容

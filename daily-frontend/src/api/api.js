@@ -23,6 +23,10 @@ export const getTodayTaskList = () => {
 
 //增加一个任务
 export const addTask = (task) => {
-    return post(TIME_TASK_URL, task);
+    var params = new URLSearchParams()
+    params.append('content',task.content);
+    params.append('deadlineTime',task.deadlineTime);
+    params.append('userId',task.userId);
+    return post(TIME_TASK_URL, params);
 }
 
