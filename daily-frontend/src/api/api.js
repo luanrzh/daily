@@ -1,4 +1,4 @@
-import { get, post } from './axios'
+import { get, post, deleteRequest } from './axios'
 
 const BASE_URL = 'http://api.dodaily.cn';
 const USER_LOGIN_URL = BASE_URL + "/user/login";
@@ -23,10 +23,17 @@ export const getTodayTaskList = () => {
 
 //增加一个任务
 export const addTask = (task) => {
-    var params = new URLSearchParams()
-    params.append('content',task.content);
-    params.append('deadlineTime',task.deadlineTime);
-    params.append('userId',task.userId);
+    var params = new URLSearchParams();
+    params.append('content', task.content);
+    params.append('deadlineTime', task.deadlineTime);
+    params.append('userId', task.userId);
     return post(TIME_TASK_URL, params);
+}
+
+//删除一个任务
+export const deleteTask = (task) => {
+    var params1 = new URLSearchParams();
+    params1.append('id', task.id);
+    return deleteRequest(TIME_TASK_URL, params1);
 }
 

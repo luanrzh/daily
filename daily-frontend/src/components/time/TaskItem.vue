@@ -7,7 +7,7 @@
           icon="el-icon-delete"
           class="box-card-title-button icon-size-18"
           circle
-          @click="deleteTask()"
+          @click="doDeleteTask(task.id)"
         ></el-button>
       </el-tooltip>
       <el-tooltip class="item" effect="light" content="增加步骤" placement="top">
@@ -37,6 +37,7 @@
 </template>
 
 <script>
+import { deleteTask } from "@/api/api";
 export default {
   props: ["task"],
   computed: {
@@ -83,8 +84,21 @@ export default {
     addStep: function() {
       this.$message("增加一个步骤");
     },
-    deleteTask: function() {
-      this.$message("删除此任务");
+    doDeleteTask: function(id) {
+      var task = {};
+      task.id = id;
+      var _this = this;
+      deleteTask(task).then(response => {
+        this.$message("任务删除成功");
+        //todo 删除tasks中的指定元素
+        //需要在父级组件中执行数组删除操作，因为当前组件没有tasks对象
+        //明天重构删除操作
+        for (var i = 0; i < this.tasks.length; i++) {
+          if (id == this.tasks[i]) {
+            this.tasks.splice(i, 1);
+          }
+        }
+      });
     }
   }
 };

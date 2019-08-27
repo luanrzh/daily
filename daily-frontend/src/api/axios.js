@@ -15,7 +15,7 @@ axios.interceptors.request.use(
 
 //响应拦截
 axios.interceptors.response.use(
-    res => res.status === 200 || res.status ===201 ? Promise.resolve(res) : Promise.reject(res),
+    res => res.status === 200 || res.status === 201 || res.status === 204 ? Promise.resolve(res) : Promise.reject(res),
     error => {
         return Promise.reject(error.response);
     })
@@ -33,6 +33,15 @@ export const get = (url, params) => {
 export const post = (url, params) => {
     return axios({
         method: 'post',
+        url: url,
+        data: params
+    })
+}
+
+//delete方法
+export const deleteRequest = (url, params) => {
+    return axios({
+        method: 'delete',
         url: url,
         data: params
     })
