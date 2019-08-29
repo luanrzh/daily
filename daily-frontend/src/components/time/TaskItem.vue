@@ -3,21 +3,24 @@
     <div slot="header">
       <span>{{task.content}}</span>
       <el-tooltip class="item" effect="light" content="删除任务" placement="top">
-        <el-button
-          icon="el-icon-delete"
-          class="box-card-title-button icon-size-18"
-          circle
-          @click="$emit('delete-task',task.id)"
-        ></el-button>
+        <el-button @click="deleteTask()" icon="el-icon-delete" class="box-card-title-button icon-size-18" circle ></el-button>
       </el-tooltip>
-      <el-tooltip class="item" effect="light" content="增加步骤" placement="top">
+      <el-popover placement="bottom" v-model="addStepVisible">
+        <el-form :inline="true">
+          <el-form-item>
+            <el-input placeholder="请输入任务步骤" v-model="addStepContent"></el-input>
+          </el-form-item>
+          <el-form-item>
+            <el-button icon="el-icon-check" circle  @click="addStep()"></el-button>
+          </el-form-item>
+        </el-form>
         <el-button
+          slot="reference"
           icon="el-icon-plus"
           class="box-card-title-button icon-size-18"
           circle
-          @click="addStep()"
         ></el-button>
-      </el-tooltip>
+      </el-popover>
     </div>
     <div v-for="step in task.taskSteps" :key="step.id" class="taskStep">
       <el-row>
@@ -39,6 +42,12 @@
 <script>
 export default {
   props: ["task"],
+  data: function() {
+    return {
+      addStepVisible: false,
+      addStepContent: ""
+    };
+  },
   computed: {
     formatedDeadlineTime: function() {
       var formatedString;
@@ -74,14 +83,21 @@ export default {
         "finished-status": status == 1
       };
     },
+    deleteTask: function(){
+      this.$emit('delete-task',this.task.id);
+    },
+    addStep: function() {
+      var step = {};
+      step.taskId = this.task.id;
+      step.content = this.addStepContent;
+      this.$emit('add-step',step);
+      this.addStepVisible = false;
+    },
     finishStep: function(step) {
       this.$message("完成步骤" + step.content);
     },
     deleteStep: function(step) {
       this.$message("删除步骤" + step.content);
-    },
-    addStep: function() {
-      this.$message("增加一个步骤");
     }
   }
 };
