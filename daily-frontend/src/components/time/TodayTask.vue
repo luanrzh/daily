@@ -11,8 +11,9 @@
       :task="task"
       @delete-task="doDeleteTask"
       @update-task="doUpdateTask"
+      @add-step="doAddStep"
     ></TaskItem>
-    <el-button type="primary" circle icon="el-icon-plus" id="add-task-button" @click="addTask"></el-button>
+    <el-button type="primary" circle icon="el-icon-plus" id="add-task-button" @click="handleAddTaskClick"></el-button>
     <el-dialog title="增加任务" :visible.sync="isDialogOpen" :before-close="handleDialogClose">
       <el-form :model="addTaskForm" label-width="80px">
         <el-form-item label="任务内容">
@@ -42,6 +43,8 @@
 import { getTodayTaskList } from "@/api/api";
 import { addTask } from "@/api/api";
 import { deleteTask } from "@/api/api";
+import { updateTask } from "@/api/api";
+import { addStep } from "@/api/api";
 
 import TaskItem from "./TaskItem";
 import store from "@/store";
@@ -87,7 +90,7 @@ export default {
   },
   components: { TaskItem },
   methods: {
-    addTask() {
+    handleAddTaskClick() {
       this.isDialogOpen = true;
     },
     handleDialogClose() {
@@ -114,7 +117,6 @@ export default {
       var task = {};
       task.id = id;
       deleteTask(task).then(response => {
-        console.log(response.data)
         this.$message("任务删除成功");
         for (var i = 0; i < this.tasks.length; i++) {
           if (id == this.tasks[i].id) {
@@ -125,6 +127,19 @@ export default {
     },
     doUpdateTask() {
       this.$message("doUpdateTask");
+    },
+    doAddStep(step) {
+      addStep(step).then(response => {
+        this.$message("步骤添加成功");
+        for (var i = 0; i < this.tasks.length; i++) {
+          if (step.taskId == this.tasks[i].id) {
+            if (!this.tasks[i].taskSteps) {
+              this.tasks[i].taskSteps = [];
+            }
+            this.tasks[i].taskSteps.push(response.data);
+          }
+        }
+      });
     }
   },
   created() {

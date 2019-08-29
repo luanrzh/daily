@@ -1,6 +1,7 @@
 package cn.dodaily.api.controller.time;
 
 import cn.dodaily.api.bean.time.Task;
+import cn.dodaily.api.bean.time.TaskStep;
 import cn.dodaily.api.exception.DatabaseException;
 import cn.dodaily.api.exception.NotFoundException;
 import cn.dodaily.api.service.time.TimeService;
@@ -18,14 +19,14 @@ public class TimeController {
     @Autowired
     private TimeService timeService;
 
-    @ApiOperation(value = "获取代办事项列表", notes = "获取代办事项列表")
+    @ApiOperation(value = "获取代办事项列表")
     @GetMapping("/tasks/all")
     @ResponseStatus(HttpStatus.OK)
     public List<Task> getTaskList() {
         return timeService.getTaskList();
     }
 
-    @ApiOperation(value = "获取今日代办事项列表", notes = "获取今日代办事项列表")
+    @ApiOperation(value = "获取今日代办事项列表")
     @GetMapping("/tasks/today")
     @ResponseStatus(HttpStatus.OK)
     public List<Task> getTodayTaskList() {
@@ -53,4 +54,24 @@ public class TimeController {
         timeService.deleteTask(task);
     }
 
+    @ApiOperation(value = "增加任务步骤")
+    @PostMapping("/tasks/steps")
+    @ResponseStatus(HttpStatus.CREATED)
+    public TaskStep addTaskStep(TaskStep taskStep) throws DatabaseException {
+        return timeService.addTaskStep(taskStep);
+    }
+
+    @ApiOperation(value = "修改任务步骤")
+    @PutMapping("/tasks/steps")
+    @ResponseStatus(HttpStatus.CREATED)
+    public TaskStep updateTaskStep(TaskStep taskStep) throws NotFoundException {
+        return timeService.updateTaskStep(taskStep);
+    }
+
+    @ApiOperation(value = "删除任务步骤")
+    @DeleteMapping("/tasks/steps")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteTaskStep(TaskStep taskStep) throws NotFoundException {
+        timeService.deleteTaskStep(taskStep);
+    }
 }

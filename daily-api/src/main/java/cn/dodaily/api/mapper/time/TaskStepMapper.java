@@ -12,6 +12,7 @@ public interface TaskStepMapper {
     List<TaskStep> selectAllByTaskId(int taskId);
 
     @Select("SELECT * FROM TASK_STEP WHERE ID = #{id}")
+    @Results(@Result(column = "TASK_ID", property = "taskId"))
     TaskStep select(int id);
 
     @Insert("INSERT INTO TASK_STEP(TASK_ID, CONTENT) VALUES(#{taskId}, #{content})")

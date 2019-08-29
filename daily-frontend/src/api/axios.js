@@ -38,8 +38,17 @@ export const post = (url, params) => {
     })
 }
 
+//put方法
+export const put = (url, params) => {
+    return axios({
+        method: 'put',
+        url: url,
+        data: params
+    })
+}
+
 //delete方法
-export const deleteRequest = (url, params) => {
+export const del = (url, params) => {
     return axios({
         method: 'delete',
         url: url,
