@@ -12,8 +12,15 @@
       @delete-task="doDeleteTask"
       @update-task="doUpdateTask"
       @add-step="doAddStep"
+      @delete-step="doDeleteStep"
     ></TaskItem>
-    <el-button type="primary" circle icon="el-icon-plus" id="add-task-button" @click="handleAddTaskClick"></el-button>
+    <el-button
+      type="primary"
+      circle
+      icon="el-icon-plus"
+      id="add-task-button"
+      @click="handleAddTaskClick"
+    ></el-button>
     <el-dialog title="增加任务" :visible.sync="isDialogOpen" :before-close="handleDialogClose">
       <el-form :model="addTaskForm" label-width="80px">
         <el-form-item label="任务内容">
@@ -43,8 +50,8 @@
 import { getTodayTaskList } from "@/api/api";
 import { addTask } from "@/api/api";
 import { deleteTask } from "@/api/api";
-import { updateTask } from "@/api/api";
 import { addStep } from "@/api/api";
+import { deleteStep } from "@/api/api";
 
 import TaskItem from "./TaskItem";
 import store from "@/store";
@@ -117,7 +124,6 @@ export default {
       var task = {};
       task.id = id;
       deleteTask(task).then(response => {
-        this.$message("任务删除成功");
         for (var i = 0; i < this.tasks.length; i++) {
           if (id == this.tasks[i].id) {
             this.tasks.splice(i, 1);
@@ -130,13 +136,26 @@ export default {
     },
     doAddStep(step) {
       addStep(step).then(response => {
-        this.$message("步骤添加成功");
         for (var i = 0; i < this.tasks.length; i++) {
           if (step.taskId == this.tasks[i].id) {
             if (!this.tasks[i].taskSteps) {
               this.tasks[i].taskSteps = [];
             }
             this.tasks[i].taskSteps.push(response.data);
+          }
+        }
+      });
+    },
+    doDeleteStep(id) {
+      var step = {};
+      step.id = id;
+      deleteStep(step).then(response => {
+        var tasks = this.tasks;
+        for (var i = 0; i < tasks.length; i++) {
+          for (var j = 0; j < tasks[i].taskSteps.length; j++) {
+            if (step.id == tasks[i].taskSteps[j].id) {
+              this.tasks[i].taskSteps.splice(j, 1);
+            }
           }
         }
       });

@@ -63,13 +63,14 @@ export const addStep = (taskStep) => {
 }
 
 //删除一个任务步骤
-export const deleteStep = (taskStep) => {
+export const deleteStep = (step) => {
     var params = new URLSearchParams();
+    params.append('id',step.id);
     return del(TIME_TASK_STEP_URL, params);
 }
 
 //修改一个任务步骤
-export const updateStep = (taskStep) => {
+export const updateStep = (step) => {
     var params = new URLSearchParams();
     return put(TIME_TASK_STEP_URL, params);
 }

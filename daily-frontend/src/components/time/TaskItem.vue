@@ -3,7 +3,12 @@
     <div slot="header">
       <span>{{task.content}}</span>
       <el-tooltip class="item" effect="light" content="删除任务" placement="top">
-        <el-button @click="deleteTask()" icon="el-icon-delete" class="box-card-title-button icon-size-18" circle ></el-button>
+        <el-button
+          @click="deleteTask()"
+          icon="el-icon-delete"
+          class="box-card-title-button icon-size-18"
+          circle
+        ></el-button>
       </el-tooltip>
       <el-popover placement="bottom" v-model="addStepVisible">
         <el-form :inline="true">
@@ -11,7 +16,7 @@
             <el-input placeholder="请输入任务步骤" v-model="addStepContent"></el-input>
           </el-form-item>
           <el-form-item>
-            <el-button icon="el-icon-check" circle  @click="addStep()"></el-button>
+            <el-button icon="el-icon-check" circle @click="addStep()"></el-button>
           </el-form-item>
         </el-form>
         <el-button
@@ -83,21 +88,21 @@ export default {
         "finished-status": status == 1
       };
     },
-    deleteTask: function(){
-      this.$emit('delete-task',this.task.id);
+    deleteTask: function() {
+      this.$emit("delete-task", this.task.id);
     },
     addStep: function() {
       var step = {};
       step.taskId = this.task.id;
       step.content = this.addStepContent;
-      this.$emit('add-step',step);
+      this.$emit("add-step", step);
       this.addStepVisible = false;
+    },
+    deleteStep: function(step) {
+      this.$emit("delete-step", step.id);
     },
     finishStep: function(step) {
       this.$message("完成步骤" + step.content);
-    },
-    deleteStep: function(step) {
-      this.$message("删除步骤" + step.content);
     }
   }
 };
