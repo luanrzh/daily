@@ -1,4 +1,4 @@
-package cn.dodaily.api.conf;
+package cn.dodaily.api.config;
 
 import com.google.common.collect.Sets;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +12,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-public class SwaggerConf {
+public class SwaggerConfig {
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)

@@ -1,4 +1,4 @@
-package cn.dodaily.api.conf;
+package cn.dodaily.api.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
