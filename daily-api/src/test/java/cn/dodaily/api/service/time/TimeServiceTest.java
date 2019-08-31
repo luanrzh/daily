@@ -2,8 +2,8 @@ package cn.dodaily.api.service.time;
 
 import cn.dodaily.api.bean.time.Task;
 import cn.dodaily.api.bean.time.TaskStep;
-import cn.dodaily.api.exception.DatabaseException;
-import cn.dodaily.api.exception.NotFoundException;
+import cn.dodaily.api.exception.impl.DatabaseException;
+import cn.dodaily.api.exception.impl.NotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
