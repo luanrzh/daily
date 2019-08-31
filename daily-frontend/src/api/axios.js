@@ -7,11 +7,12 @@ axios.defaults.timeout = 10000;
 //请求拦截
 axios.interceptors.request.use(
     config => {
-        // config.headers.Authorization = store.getAuthorization();
-        console.log(config);
+        config.headers.Authorization = store.getAuthorization();
+        console.log('请求拦截', config);
         return config;
     },
     error => {
+        console.log('请求拦截出错', error)
         // 做一些错误处理的操作
         return Promise.error(error);
     })
@@ -19,12 +20,16 @@ axios.interceptors.request.use(
 //响应拦截
 axios.interceptors.response.use(
     res => {
-        var isSuccess = res.status === 200 || res.status === 201 || res.status === 204;
-        isSuccess ? Promise.resolve(res) : Promise.reject(res);
-        return res;
+        console.log('响应拦截', res)
+        var status = res.status;
+        if (status === 200 || status === 201 || status === 204) {
+            return Promise.resolve(res)
+        } else if (status === 401) {
+            return Promise.reject(res);
+        }
     },
     error => {
-        console.log(error)
+        console.log('响应拦截出错', error.response)
         return Promise.reject(error.response);
     })
 
