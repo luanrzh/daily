@@ -1,19 +1,21 @@
-English Version | [中文版](./README_CN.md) 
+中文版  | [English Version](./README_EN.md) 
 
-# Introduction of "DAILY" 
-As a personal habit management system integrating to-do list, real-time bookkeeping and blog diary,DAILY aims to keeping managing my time,money and knowledge.Live each day and start now!
+> [首页](http://www.dodaily.cn)：点击预览`daily-frontend`项目
 
-# Directory structure
-- `daily-api` : Back-end apis, which provide a standard set of restful interfaces that serve all front-end applications (including PC front-end Web applications, mobile front-end Web applications, Android native mobile applications)
-- `daily-frontend` : Front-end web app for pc
+> [API测试页](http://api.dodaily.cn/swagger-ui.html)：点击预览`daily-api`项目
 
-# Expectant runtime environment
-- web app for pc (current version) 
-- web app for mobile : mobile-first cross-platform mobile web app which can transplant to the WeChat little program (future version) 
-- native app for android mobile (future version) 
+# 简介 
+作为一款个人习惯管理系统，DAILY集成了代办事项、实时记账、个人博客等功能，用来管理我的时间、金钱和知识。过好每一天，从现在开始！
 
-# Expectant technology stack
-- `Spring boot` series
-- `vue` series
+# 目录结构
+- `daily-api` : 后端API，提供一套标准的restful接口，给所有的前端应用提供服务（包括PC前端Web应用，手机前端Web应用，Android原生手机应用）
+- `daily-frontend` : PC前端
 
+# 预期运行平台
+- 电脑端Web应用 (当前版本)
+- 移动端Web应用 : 移动设备优先的跨平台web应用，支持轻松地移植到微信小程序 (未来版本)
+- 安卓原生手机应用 (未来版本)
 
+# 技术栈
+- `Spring boot` 系列
+- `vue` 系列
