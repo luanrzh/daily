@@ -1,11 +1,9 @@
-中文版  | [English Version](./README_EN.md) 
-
-> [首页](http://www.dodaily.cn)：点击预览`daily-frontend`项目
-
-> [API测试页](http://api.dodaily.cn/swagger-ui.html)：点击预览`daily-api`项目
+中文版  | [English Version](./README_EN.md)
 
 # 简介 
-作为一款个人习惯管理系统，DAILY集成了代办事项、实时记账、个人博客等功能，用来管理我的时间、金钱和知识。过好每一天，从现在开始！
+[首页](http://www.dodaily.cn "点击预览`daily-frontend`项目") | [API测试页](http://api.dodaily.cn/swagger-ui.html "点击预览`daily-api`项目")
+
+作为一款个人习惯管理系统，DAILY集成了代办事项、实时记账、个人博客等功能，用来管理我的时间、金钱和知识。
 
 # 目录结构
 - `daily-api` : 后端API，提供一套标准的restful接口，给所有的前端应用提供服务（包括PC前端Web应用，手机前端Web应用，Android原生手机应用）
