@@ -35,7 +35,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //增加token拦截器
-        // registry.addInterceptor(tokenInterceptor).addPathPatterns("/**").excludePathPatterns("/user/*");
+        registry.addInterceptor(tokenInterceptor).addPathPatterns("/**").excludePathPatterns("/user/*");
     }
 
     /**
