@@ -1,7 +1,7 @@
 import { get, post, del, put } from './axios'
 
-const BASE_URL = 'http://api.dodaily.cn';
-//const BASE_URL = 'http://localhost:8000';
+// const BASE_URL = 'http://api.dodaily.cn';
+const BASE_URL = 'http://localhost:8000';
 const USER_LOGIN_URL = BASE_URL + "/user/login";
 const TIME_TASK_URL = BASE_URL + "/time/tasks";
 const TIME_TASK_STEP_URL = TIME_TASK_URL + "/steps";
@@ -49,7 +49,7 @@ export const updateTask = (task) => {
         params.append('status', task.status);
     }
     if (task.deadlineTime) {
-        params.append('deadlineTime', deadlineTime);
+        params.append('deadlineTime', task.deadlineTime);
     }
     return put(TIME_TASK_URL, params);
 }

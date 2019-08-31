@@ -1,4 +1,5 @@
 import axios from 'axios';
+import store from "@/store";
 
 //设置默认的请求超时时间
 axios.defaults.timeout = 10000;
@@ -6,6 +7,8 @@ axios.defaults.timeout = 10000;
 //请求拦截
 axios.interceptors.request.use(
     config => {
+        // config.headers.Authorization = store.getAuthorization();
+        console.log(config);
         return config;
     },
     error => {
@@ -15,8 +18,13 @@ axios.interceptors.request.use(
 
 //响应拦截
 axios.interceptors.response.use(
-    res => res.status === 200 || res.status === 201 || res.status === 204 ? Promise.resolve(res) : Promise.reject(res),
+    res => {
+        var isSuccess = res.status === 200 || res.status === 201 || res.status === 204;
+        isSuccess ? Promise.resolve(res) : Promise.reject(res);
+        return res;
+    },
     error => {
+        console.log(error)
         return Promise.reject(error.response);
     })
 

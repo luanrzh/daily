@@ -4,17 +4,21 @@ import cn.dodaily.api.exception.bean.ErrorResultEnum;
 import cn.dodaily.api.exception.impl.UnauthorizedException;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.Enumeration;
 
 /**
  * Token拦截器：除登录、注册等操作之外，其它的所有请求全部拦截并验证其合法性
  */
+@Component
 public class TokenInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        Enumeration<String> aa = request.getHeaderNames();
         String authorization = request.getHeader("Authorization");
         try{
             Claims claims = JwtHelper.parseJws(authorization);

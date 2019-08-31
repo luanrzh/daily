@@ -25,7 +25,8 @@ public class TokenAdvice implements ResponseBodyAdvice<User> {
     public User beforeBodyWrite(User user, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         String authorization = JwtHelper.createJws(user);
         //将token放入Response头部
-        serverHttpResponse.getHeaders().add("Authorization",authorization);
+        serverHttpResponse.getHeaders().add("authorization",authorization);
+        serverHttpResponse.getHeaders().add("Access-Control-Expose-Headers","authorization");
         return user;
     }
 }

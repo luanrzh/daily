@@ -1,9 +1,11 @@
 package cn.dodaily.api.config;
 
 import cn.dodaily.api.token.TokenInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
@@ -14,13 +16,17 @@ import java.util.Date;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {
+    @Autowired
+    String2DateConverter string2DateConverter;
+    @Autowired
+    TokenInterceptor tokenInterceptor;
 
     /**
      * 自定义参数绑定
      */
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addConverter(new String2DateConverter());
+        registry.addConverter(string2DateConverter);
     }
 
     /**
@@ -29,15 +35,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         //增加token拦截器
-        registry.addInterceptor(new TokenInterceptor())
-                .addPathPatterns("/*")
-                .excludePathPatterns("/user/*");
+        // registry.addInterceptor(tokenInterceptor).addPathPatterns("/**").excludePathPatterns("/user/*");
     }
 
     /**
      * String-Date转换器
      */
-    private static class String2DateConverter implements Converter<String, Date> {
+    @Component
+    private class String2DateConverter implements Converter<String, Date> {
         @Override
         public Date convert(String s) {
             try {
