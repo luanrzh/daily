@@ -20,6 +20,7 @@
 <script>
 import { login } from "@/api/api";
 import store from "@/store";
+import { constants } from 'crypto';
 
 export default {
   data() {
@@ -50,7 +51,7 @@ export default {
                 var user = response.data;
                 if (user.username) {
                   _this.$message.success("登录成功");
-                  store.login(user);
+                  store.login(user,response.headers.authorization);
                   _this.$router.replace({ name: "home" });
                 } else {
                   _this.$message.error("登录失败（用户名或密码错误）");

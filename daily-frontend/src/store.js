@@ -1,18 +1,23 @@
 var store = {
     state: {
-        user: get('user')
+        user: get('user'),
+        authorization: get('authorization')
     },
-    login(user) {
+    login(user, authorization) {
         this.state.user = user;
         set('user', user);
+        set('authorization', authorization);
     },
     logout() {
         remove('user');
     },
-    getUser(){
-        return get('user')
+    getUser() {
+        return get('user');
+    },
+    getAuthorization() {
+        return get('authorization');
     }
-}
+} 
 
 function get(key) {
     var jsonObject = window.localStorage.getItem(key);
