@@ -20,12 +20,12 @@ public class TimeServiceTest {
 
     @Test
     public void getTaskList() {
-        Object rs = service.getTaskList();
+        Object rs = service.getTaskList(1);
     }
 
     @Test
     public void getTodayTaskList() {
-        Object rs = service.getTodayTaskList();
+        Object rs = service.getTodayTaskList(1);
     }
 
     @Test

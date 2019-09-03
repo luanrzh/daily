@@ -1,5 +1,7 @@
 import axios from 'axios';
 import store from "@/store";
+import router from "@/router";
+import { Message } from 'element-ui'
 
 //设置默认的请求超时时间
 axios.defaults.timeout = 10000;
@@ -24,13 +26,16 @@ axios.interceptors.response.use(
         var status = res.status;
         if (status === 200 || status === 201 || status === 204) {
             return Promise.resolve(res)
-        } else if (status === 401) {
-            return Promise.reject(res);
         }
     },
-    error => {
-        console.log('响应拦截出错', error.response)
-        return Promise.reject(error.response);
+    err => {
+        console.log('响应拦截出错', err.response);
+        var status = err.response.status;
+        if (status === 401) {
+            router.replace({ name: "login" })
+            Message("Token失效,请重新登录")
+        }
+        return Promise.reject(err.response);
     })
 
 //get方法

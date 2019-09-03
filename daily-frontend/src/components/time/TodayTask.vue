@@ -107,7 +107,7 @@ export default {
       var task = {};
       task.content = this.addTaskForm.content;
       task.deadlineTime = this.addTaskForm.deadlineTime;
-      task.userId = store.state.user.id;
+      //task.userId = store.state.user.id;
       addTask(task).then(response => {
         this.isDialogOpen = false;
         this.tasks.push(response.data);

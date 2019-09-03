@@ -7,23 +7,23 @@ import java.util.List;
 
 @Mapper
 public interface TaskMapper {
-    @Select("SELECT * FROM TASK")
+    @Select("SELECT * FROM TASK WHERE USER_ID=#{userId}")
     @Results({
             @Result(column = "CREATE_TIME", property = "createTime"),
             @Result(column = "DEADLINE_TIME", property = "deadlineTime"),
             @Result(column = "ID", property = "id"),
             @Result(column = "ID", property = "taskSteps",
                     many = @Many(select = "cn.dodaily.api.mapper.time.TaskStepMapper.selectAllByTaskId"))})
-    List<Task> selectAll();
+    List<Task> selectAll(int userId);
 
-    @Select("SELECT * FROM TASK WHERE STATUS = 0")
+    @Select("SELECT * FROM TASK WHERE STATUS = 0 AND USER_ID=#{userId}")
     @Results({
             @Result(column = "CREATE_TIME", property = "createTime"),
             @Result(column = "DEADLINE_TIME", property = "deadlineTime"),
             @Result(column = "ID", property = "id"),
             @Result(column = "ID", property = "taskSteps",
                     many = @Many(select = "cn.dodaily.api.mapper.time.TaskStepMapper.selectAllByTaskId"))})
-    List<Task> selectAllToday();
+    List<Task> selectAllToday(int userId);
 
     @Select("SELECT * FROM TASK WHERE ID = #{id}")
     @Results({
@@ -34,11 +34,11 @@ public interface TaskMapper {
                     many = @Many(select = "cn.dodaily.dailyserver.mapper.time.TaskStepMapper.selectAllByTaskId"))})
     Task select(int id);
 
-    @Insert("INSERT INTO TASK(CONTENT,CREATE_TIME,USER_ID) VALUES(#{content}, #{createTime}, #{userId})")
+    @Insert("INSERT INTO TASK(CONTENT,CREATE_TIME,DEADLINE_TIME,USER_ID) VALUES(#{content}, #{createTime},#{deadlineTime}w #{userId})")
     @Options(useGeneratedKeys = true, keyProperty = "id")
     int insert(Task task);
 
-    @Update("UPDATE TASK SET CONTENT=#{content},STATUS=#{status}, DEADLINE_TIME=#{deadlineTime} WHERE ID=#{id}")
+    @Update("UPDATE TASK SET CONTENT=#{content},STATUS=#{status}, CREATE_TIME=#{createTime}, DEADLINE_TIME=#{deadlineTime} WHERE ID=#{id}")
     int update(Task task);
 
     @Delete("DELETE FROM TASK WHERE ID=#{id}")

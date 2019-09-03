@@ -28,8 +28,8 @@ public class TimeService {
      *
      * @return 任务集合
      */
-    public List<Task> getTaskList() {
-        return taskMapper.selectAll();
+    public List<Task> getTaskList(int userId) {
+        return taskMapper.selectAll(userId);
     }
 
     /**
@@ -37,9 +37,10 @@ public class TimeService {
      *
      * @return 任务集合
      */
-    public List<Task> getTodayTaskList(){
-        return taskMapper.selectAllToday();
+    public List<Task> getTodayTaskList(int userId){
+        return taskMapper.selectAllToday(userId);
     }
+
     /**
      * 增加任务
      *

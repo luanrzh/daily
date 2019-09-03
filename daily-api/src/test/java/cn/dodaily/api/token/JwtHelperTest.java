@@ -10,13 +10,13 @@ public class JwtHelperTest {
     @Test
     public void createJws() {
         User user = new User();
-        user.setId(123);
-        JwtHelper.createJws(user);
+        user.setId(1);
+        String jws = JwtHelper.createJws(user);
     }
 
     @Test
     public void parseJws() {
-        String jwsString = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjEyM30.IW69hu36gfpg7P1ddQ_0OaGHp8oPjqLgOCmCXh_tFCk";
+        String jwsString = "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VySWQiOjF9.nTn4zGsREcWn1U_9Z70CsbWYISaZ80TrKBmEKrHAmVI";
         JwtHelper.parseJws(jwsString);
 
     }

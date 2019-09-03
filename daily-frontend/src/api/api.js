@@ -28,7 +28,7 @@ export const addTask = (task) => {
     var params = new URLSearchParams();
     params.append('content', task.content);
     params.append('deadlineTime', task.deadlineTime);
-    params.append('userId', task.userId);
+    //params.append('userId', task.userId);
     return post(TIME_TASK_URL, params);
 }
 
