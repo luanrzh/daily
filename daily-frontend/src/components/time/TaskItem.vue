@@ -99,10 +99,13 @@ export default {
       this.addStepVisible = false;
     },
     deleteStep: function(step) {
-      this.$emit("delete-step", step.id);
+      this.$emit("delete-step", step);
     },
     finishStep: function(step) {
-      this.$message("完成步骤" + step.content);
+      var status = step.status;
+      status = status==0 ? 1 : 0;
+      step.status = status;
+      this.$emit("update-step",step);
     }
   }
 };

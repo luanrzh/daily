@@ -13,6 +13,7 @@
       @update-task="doUpdateTask"
       @add-step="doAddStep"
       @delete-step="doDeleteStep"
+      @update-step="doUpdateStep"
     ></TaskItem>
     <el-button
       type="primary"
@@ -47,14 +48,16 @@
 </template>
 
 <script>
-import { getTodayTaskList } from "@/api/api";
-import { addTask } from "@/api/api";
-import { deleteTask } from "@/api/api";
-import { addStep } from "@/api/api";
-import { deleteStep } from "@/api/api";
+import {
+  getTodayTaskList,
+  addTask,
+  deleteTask,
+  addStep,
+  deleteStep,
+  updateStep
+} from "@/api/api";
 
 import TaskItem from "./TaskItem";
-import store from "@/store";
 
 export default {
   name: "TodayTask",
@@ -72,13 +75,30 @@ export default {
           {
             text: "今天",
             onClick(picker) {
-              picker.$emit("pick", new Date());
+              const now = new Date();
+              var date = new Date(
+                now.getFullYear() +
+                  "-" +
+                  (now.getMonth() + 1) +
+                  "-" +
+                  now.getDate() +
+                  " 23:59:59"
+              );
+              picker.$emit("pick", date);
             }
           },
           {
             text: "明天",
             onClick(picker) {
-              const date = new Date();
+              const now = new Date();
+              var date = new Date(
+                now.getFullYear() +
+                  "-" +
+                  (now.getMonth() + 1) +
+                  "-" +
+                  now.getDate() +
+                  " 23:59:59"
+              );
               date.setTime(date.getTime() + 3600 * 1000 * 24);
               picker.$emit("pick", date);
             }
@@ -86,7 +106,15 @@ export default {
           {
             text: "一周后",
             onClick(picker) {
-              const date = new Date();
+              const now = new Date();
+              var date = new Date(
+                now.getFullYear() +
+                  "-" +
+                  (now.getMonth() + 1) +
+                  "-" +
+                  now.getDate() +
+                  " 23:59:59"
+              );
               date.setTime(date.getTime() + 3600 * 1000 * 24 * 7);
               picker.$emit("pick", date);
             }
@@ -107,7 +135,6 @@ export default {
       var task = {};
       task.content = this.addTaskForm.content;
       task.deadlineTime = this.addTaskForm.deadlineTime;
-      //task.userId = store.state.user.id;
       addTask(task).then(response => {
         this.isDialogOpen = false;
         this.tasks.push(response.data);
@@ -146,9 +173,7 @@ export default {
         }
       });
     },
-    doDeleteStep(id) {
-      var step = {};
-      step.id = id;
+    doDeleteStep(step) {
       deleteStep(step).then(response => {
         var tasks = this.tasks;
         for (var i = 0; i < tasks.length; i++) {
@@ -159,6 +184,9 @@ export default {
           }
         }
       });
+    },
+    doUpdateStep(step) {
+      updateStep(step);
     }
   },
   created() {

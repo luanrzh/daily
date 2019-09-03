@@ -72,6 +72,8 @@ export const deleteStep = (step) => {
 //修改一个任务步骤
 export const updateStep = (step) => {
     var params = new URLSearchParams();
+    params.append('id',step.id);
+    params.append('status',step.status);
     return put(TIME_TASK_STEP_URL, params);
 }
 
