@@ -31,7 +31,7 @@ public interface TaskMapper {
             @Result(column = "DEADLINE_TIME", property = "deadlineTime"),
             @Result(column = "ID", property = "id"),
             @Result(column = "ID", property = "taskSteps",
-                    many = @Many(select = "cn.dodaily.dailyserver.mapper.time.TaskStepMapper.selectAllByTaskId"))})
+                    many = @Many(select = "cn.dodaily.api.mapper.time.TaskStepMapper.selectAllByTaskId"))})
     Task select(int id);
 
     @Insert("INSERT INTO TASK(CONTENT,CREATE_TIME,DEADLINE_TIME,USER_ID) VALUES(#{content}, #{createTime},#{deadlineTime}, #{userId})")

@@ -30,7 +30,7 @@
     <div v-for="step in task.taskSteps" :key="step.id" class="taskStep">
       <el-row>
         <el-col :span="2">
-          <i :class="getIconStatusClass(step.status)" @click="finishStep(step)"></i>
+          <i :class="getIconStatusClass(step.status)" @click="updateStepStatus(step)"></i>
         </el-col>
         <el-col :span="20">
           <span :class="getTextStatusClass(step.status)">{{step.content }}</span>
@@ -101,11 +101,11 @@ export default {
     deleteStep: function(step) {
       this.$emit("delete-step", step);
     },
-    finishStep: function(step) {
+    updateStepStatus: function(step) {
       var status = step.status;
       status = status==0 ? 1 : 0;
       step.status = status;
-      this.$emit("finish-step",step);
+      this.$emit("update-step-status",step);
     },
     updateTask:function(){
       this.$emit("update-task",this.task);

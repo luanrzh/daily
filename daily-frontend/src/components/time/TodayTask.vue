@@ -13,13 +13,13 @@
       @update-task="preUpdateTask"
       @add-step="doAddStep"
       @delete-step="doDeleteStep"
-      @finish-step="doFinishStep"
+      @update-step-status="doUpdateStepStatus"
     ></TaskItem>
-    <el-button type="primary" circle icon="el-icon-plus" id="add-task-button" @click="preAddTask"></el-button>
+    <el-button type="primary" circle icon="el-icon-plus" id="font-size-24" @click="preAddTask"></el-button>
     <el-dialog title="增加任务" :visible.sync="isDialogOpen" :before-close="handleDialogClose">
       <el-form :model="addTaskForm" label-width="80px">
         <el-form-item label="任务内容">
-          <el-input v-model="addTaskForm.content" placeholder="输入任务内容(限12字)" maxlength="12"></el-input>
+          <el-input v-model="addTaskForm.content" placeholder="输入任务内容"></el-input>
         </el-form-item>
         <el-form-item label="完成时间">
           <el-date-picker
@@ -38,12 +38,30 @@
         </el-form-item>
       </el-form>
     </el-dialog>
-    <el-drawer title="任务" :visible.sync="isDrawerOpen" :before-close="handleDrawerClose">
-      <el-form :model="updateTaskForm">
-        <div>任务名</div>
-        <div>步骤1</div>
-        <div>步骤2</div>
-        <div>步骤3</div>
+    <el-drawer title="任务更新" :visible.sync="isDrawerOpen" :before-close="handleDrawerClose">
+      <el-form :model="updateTaskForm" id="update-task-form">
+        <el-form-item>
+          <el-input v-model="updateTaskForm.content" class="margin-4-10 font-size-18"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <p v-for="taskStep in updateTaskForm.taskSteps" :key="taskStep.id">
+            <el-input v-model="taskStep.content" class="margin-4-10"></el-input>
+          </p>
+        </el-form-item>
+        <el-form-item>
+          <el-date-picker
+            v-model="updateTaskForm.deadlineTime"
+            type="datetime"
+            placeholder="选择日期时间"
+            :picker-options="pickerOptions"
+            suffix-icon="el-icon-date"
+            value-format="yyyy-MM-dd HH:mm:ss"
+            class="margin-4-10"
+          ></el-date-picker>
+        </el-form-item>
+        <el-button @click="doUpdateTask" type="primary" class="margin-4-10">确认</el-button>
+        <el-button @click="cancleUpdateTask" class="margin-4-10">取消</el-button>
+        <el-form-item></el-form-item>
       </el-form>
     </el-drawer>
   </div>
@@ -56,7 +74,8 @@ import {
   deleteTask,
   addStep,
   deleteStep,
-  updateStep
+  updateStepStatus,
+  updateTask
 } from "@/api/api";
 
 import TaskItem from "./TaskItem";
@@ -73,7 +92,15 @@ export default {
         content: "",
         deadlineTime: ""
       },
-      updateTaskForm: {},
+      updateTaskForm: {
+        id: "",
+        status: "",
+        content: "",
+        createTime: "",
+        deadlineTime: "",
+        taskSteps: []
+      },
+      changedTask: {},
       pickerOptions: {
         shortcuts: [
           {
@@ -135,9 +162,6 @@ export default {
     handleDialogClose() {
       this.isDialogOpen = false;
     },
-    preUpdateTask() {
-      this.isDrawerOpen = true;
-    },
     handleDrawerClose() {
       this.isDrawerOpen = false;
     },
@@ -192,8 +216,24 @@ export default {
         }
       });
     },
-    doFinishStep(step) {
-      updateStep(step);
+    doUpdateStepStatus(step) {
+      updateStepStatus(step);
+    },
+    preUpdateTask(task) {
+      this.isDrawerOpen = true;
+      this.updateTaskForm.id = task.id;
+      this.updateTaskForm.content = task.content;
+      this.updateTaskForm.createTime = task.createTime;
+      this.updateTaskForm.deadlineTime = task.deadlineTime;
+      this.updateTaskForm.taskSteps = task.taskSteps;
+    },
+    doUpdateTask() {
+      this.changedTask.id = this.updateTaskForm.id;
+      //todo 为updateTaskForm中的input设置changed事件,将更新后的值存入changedTask
+      updateTask(this.changedTask)
+    },
+    cancleUpdateTask() {
+      this.isDrawerOpen = false;
     }
   },
   created() {
@@ -205,7 +245,13 @@ export default {
 };
 </script>
 <style>
-#add-task-button {
+#font-size-24 {
   font-size: 24px;
+}
+.font-size-18 {
+  font-size: 18px;
+}
+.margin-4-10 {
+  margin: 4px 10px;
 }
 </style>
