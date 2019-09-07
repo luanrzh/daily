@@ -10,22 +10,16 @@
       :key="task.id"
       :task="task"
       @delete-task="doDeleteTask"
-      @update-task="doUpdateTask"
+      @update-task="preUpdateTask"
       @add-step="doAddStep"
       @delete-step="doDeleteStep"
-      @update-step="doUpdateStep"
+      @finish-step="doFinishStep"
     ></TaskItem>
-    <el-button
-      type="primary"
-      circle
-      icon="el-icon-plus"
-      id="add-task-button"
-      @click="handleAddTaskClick"
-    ></el-button>
+    <el-button type="primary" circle icon="el-icon-plus" id="add-task-button" @click="preAddTask"></el-button>
     <el-dialog title="增加任务" :visible.sync="isDialogOpen" :before-close="handleDialogClose">
       <el-form :model="addTaskForm" label-width="80px">
         <el-form-item label="任务内容">
-          <el-input v-model="addTaskForm.content" placeholder="输入任务内容"></el-input>
+          <el-input v-model="addTaskForm.content" placeholder="输入任务内容(限12字)" maxlength="12"></el-input>
         </el-form-item>
         <el-form-item label="完成时间">
           <el-date-picker
@@ -44,6 +38,14 @@
         </el-form-item>
       </el-form>
     </el-dialog>
+    <el-drawer title="任务" :visible.sync="isDrawerOpen" :before-close="handleDrawerClose">
+      <el-form :model="updateTaskForm">
+        <div>任务名</div>
+        <div>步骤1</div>
+        <div>步骤2</div>
+        <div>步骤3</div>
+      </el-form>
+    </el-drawer>
   </div>
 </template>
 
@@ -66,10 +68,12 @@ export default {
       tasks: [],
       loading: true,
       isDialogOpen: false,
+      isDrawerOpen: false,
       addTaskForm: {
         content: "",
         deadlineTime: ""
       },
+      updateTaskForm: {},
       pickerOptions: {
         shortcuts: [
           {
@@ -125,11 +129,17 @@ export default {
   },
   components: { TaskItem },
   methods: {
-    handleAddTaskClick() {
+    preAddTask() {
       this.isDialogOpen = true;
     },
     handleDialogClose() {
       this.isDialogOpen = false;
+    },
+    preUpdateTask() {
+      this.isDrawerOpen = true;
+    },
+    handleDrawerClose() {
+      this.isDrawerOpen = false;
     },
     doAddTask() {
       var task = {};
@@ -158,9 +168,6 @@ export default {
         }
       });
     },
-    doUpdateTask() {
-      this.$message("doUpdateTask");
-    },
     doAddStep(step) {
       addStep(step).then(response => {
         for (var i = 0; i < this.tasks.length; i++) {
@@ -185,7 +192,7 @@ export default {
         }
       });
     },
-    doUpdateStep(step) {
+    doFinishStep(step) {
       updateStep(step);
     }
   },

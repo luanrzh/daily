@@ -11,6 +11,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
+      redirect: 'time/todayTask',
       component: Home,
       children: [
         {

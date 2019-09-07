@@ -1,7 +1,7 @@
 <template>
   <el-card class="box-card">
     <div slot="header">
-      <span>{{task.content}}</span>
+      <span @click="updateTask()">{{task.content}}</span>
       <el-tooltip class="item" effect="light" content="删除任务" placement="top">
         <el-button
           @click="deleteTask()"
@@ -105,7 +105,10 @@ export default {
       var status = step.status;
       status = status==0 ? 1 : 0;
       step.status = status;
-      this.$emit("update-step",step);
+      this.$emit("finish-step",step);
+    },
+    updateTask:function(){
+      this.$emit("update-task",this.task);
     }
   }
 };
