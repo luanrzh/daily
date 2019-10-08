@@ -39,6 +39,26 @@ export const deleteTask = (task) => {
     return del(TIME_TASK_URL, params);
 }
 
+//更新一个任务
+export const updateTask = (task) => {
+    console.log(task);
+    var params = new URLSearchParams();
+    params.append('id', task.id);
+    if (task.content) {
+        params.append('content', task.content);
+    }
+    if (task.status) {
+        params.append('status', task.status);
+    }
+    if (task.deadlineTime) {
+        params.append('deadlineTime', task.deadlineTime);
+    }
+    if (task.taskSteps) {
+        params.append('taskSteps',taskSteps);
+    }
+    return put(TIME_TASK_URL, params);
+}
+
 //增加一个任务步骤
 export const addStep = (taskStep) => {
     var params = new URLSearchParams();
@@ -60,21 +80,4 @@ export const updateStepStatus = (step) => {
     params.append('id', step.id);
     params.append('status', step.status);
     return put(TIME_TASK_STEP_URL, params);
-}
-
-//更新一个任务
-export const updateTask = (task) => {
-    console.log(task);
-    var params = new URLSearchParams();
-    params.append('id', task.id);
-    if (task.content) {
-        params.append('content', task.content);
-    }
-    if (task.status) {
-        params.append('status', task.status);
-    }
-    if (task.deadlineTime) {
-        params.append('deadlineTime', task.deadlineTime);
-    }
-    return put(TIME_TASK_URL, params);
 }

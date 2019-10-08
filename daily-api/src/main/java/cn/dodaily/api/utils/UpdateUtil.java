@@ -84,4 +84,32 @@ public class UpdateUtil {
                 .filter(propertyName -> wrappedSource.getPropertyValue(propertyName) == null)
                 .toArray(String[]::new);
     }
+
+    /**
+     * 判断两个对象的属性值是否完全相同
+     *
+     * @param object1 对象一
+     * @param object2 对象而
+     * @return 是否相同
+     */
+    public static boolean isObjectEqual(Object object1, Object object2) {
+        //便利所有属性
+        for (Field field : object1.getClass().getDeclaredFields()) {
+            try {
+                //将私有属性设置为可访问
+                field.setAccessible(true);
+                //获取属性名
+                String fieldName = field.getName();
+                //获取属性值
+                Object fieldValue1 = field.get(object1);
+                Object fieldValue2 = field.get(object2);
+                if (!fieldValue1.equals(fieldValue2)) {
+                    return false;
+                }
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
+    }
 }

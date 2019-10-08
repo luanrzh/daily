@@ -15,6 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 import static cn.dodaily.api.utils.UpdateUtil.fillNullToNew;
+import static cn.dodaily.api.utils.UpdateUtil.isObjectEqual;
 
 @Service
 public class TimeService {
@@ -37,7 +38,7 @@ public class TimeService {
      *
      * @return 任务集合
      */
-    public List<Task> getTodayTaskList(int userId){
+    public List<Task> getTodayTaskList(int userId) {
         return taskMapper.selectAllToday(userId);
     }
 
@@ -55,24 +56,6 @@ public class TimeService {
     }
 
     /**
-     * 更新任务
-     *
-     * @param task 待更新的任务对象
-     * @return 更新过后的任务对象
-     * @throws NotFoundException 资源未找到异常(试图更新不存在的任务)
-     */
-    public Task updateTask(Task task) throws NotFoundException {
-        Task oldTask = taskMapper.select(task.getId());
-        if (oldTask != null) {
-            fillNullToNew(task, oldTask);
-            taskMapper.update(task);
-        } else {
-            throw new NotFoundException(ErrorResultEnum.NoFound);
-        }
-        return task;
-    }
-
-    /**
      * 删除任务
      *
      * @param task 待删除的任务对象
@@ -83,6 +66,29 @@ public class TimeService {
         if (matchedLine != 1) {
             throw new NotFoundException(ErrorResultEnum.NoFound);
         }
+    }
+
+    /**
+     * 更新任务
+     *
+     * @param task 待更新的任务对象
+     * @return 更新过后的任务对象
+     * @throws NotFoundException 资源未找到异常(试图更新不存在的任务)
+     */
+    public Task updateTask(Task task) throws NotFoundException {
+        Task oldTask = taskMapper.select(task.getId());
+        if (oldTask != null) {
+            //更新任务
+            fillNullToNew(task, oldTask);
+            taskMapper.update(task);
+            //更新任务步骤
+            for (TaskStep taskStep : task.getTaskSteps()) {
+                updateTaskStep(taskStep);
+            }
+        } else {
+            throw new NotFoundException(ErrorResultEnum.NoFound);
+        }
+        return task;
     }
 
     /**
@@ -103,6 +109,19 @@ public class TimeService {
     }
 
     /**
+     * 删除任务步骤
+     *
+     * @param taskStep 待删除的任务步骤对象
+     * @throws NotFoundException 资源未找到异常（试图删除不存在的任务步骤）
+     */
+    public void deleteTaskStep(TaskStep taskStep) throws NotFoundException {
+        int matchedLine = taskStepMapper.delete(taskStep.getId());
+        if (matchedLine != 1) {
+            throw new NotFoundException(ErrorResultEnum.NoFound);
+        }
+    }
+
+    /**
      * 更新任务步骤
      *
      * @param taskStep 待更新的任务步骤对象
@@ -119,18 +138,4 @@ public class TimeService {
         }
         return taskStep;
     }
-
-    /**
-     * 删除任务步骤
-     *
-     * @param taskStep 待删除的任务步骤对象
-     * @throws NotFoundException 资源未找到异常（试图删除不存在的任务步骤）
-     */
-    public void deleteTaskStep(TaskStep taskStep) throws NotFoundException {
-        int matchedLine = taskStepMapper.delete(taskStep.getId());
-        if (matchedLine != 1) {
-            throw new NotFoundException(ErrorResultEnum.NoFound);
-        }
-    }
-
 }

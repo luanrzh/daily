@@ -94,8 +94,7 @@ public class TimeController {
     private int getUserId() throws UnauthorizedException {
         String authorization = request.getHeader("Authorization");
         try{
-            Claims claims = JwtHelper.parseJws(authorization);
-            return (int) claims.get("userId");
+            return (int) JwtHelper.parseJws(authorization).get("userId");
         }catch (Exception e){
             throw new UnauthorizedException(ErrorResultEnum.Unauthorized);
         }

@@ -27,6 +27,7 @@ public interface TaskMapper {
 
     @Select("SELECT * FROM TASK WHERE ID = #{id}")
     @Results({
+            @Result(column = "USER_ID",property = "userId"),
             @Result(column = "CREATE_TIME", property = "createTime"),
             @Result(column = "DEADLINE_TIME", property = "deadlineTime"),
             @Result(column = "ID", property = "id"),
