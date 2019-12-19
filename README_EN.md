@@ -3,7 +3,7 @@
 # Introduction of "DAILY" 
 [Home page](http://www.dodaily.cn "Click to preview the `daily-frontend` project") | [API test page](http://api.dodaily.cn/swagger-ui.html "Click to preview the `daily-api` project")
 
-DAILY is a personalized software, which integrates to-do list, real-time bookkeeping and blog diary.Life should not have superfluous things, it should be simpler and purer.To get rid of complexity and obtain simpleness, the DAILY came into being.
+DAILY is a personalized software, which integrates to-do list, real-time bookkeeping and blog diary.To get rid of complexity and obtain simpleness, the DAILY came into being.
 
 # Directory structure
 - `daily-api` : Back-end apis, which provide a standard set of restful interfaces that serve all front-end applications (including PC front-end Web applications, PC desktop applications, mobile front-end Web applications, Android native mobile applications)

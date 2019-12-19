@@ -3,7 +3,7 @@
 # 简介 
 [首页](http://www.dodaily.cn "点击预览`daily-frontend`项目") | [API测试页](http://api.dodaily.cn/swagger-ui.html "点击预览`daily-api`项目")
 
-DAILY是一款个人向的软件，它集成了待办事项、实时记账、个人博客。生活不该有多余的东西，应当更简单、更纯粹。去繁化简，DAILY应运而生。
+DAILY是一款个人向的软件，它集成了待办事项、实时记账、个人博客。去繁化简，DAILY应运而生。
 
 # 目录结构
 - `daily-api` : 后端API，提供一套标准的restful接口，给所有的前端应用提供服务（包括PC前端Web应用、PC桌面应用、手机前端Web应用、Android原生手机应用）
