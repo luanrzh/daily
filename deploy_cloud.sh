@@ -14,7 +14,7 @@ echo -e "\n----------构建daily-api----------"
 cd /root/daily/daily-api
 mvn clean package -DskipTests
 echo -e "\n----------备份daily-front----------"
-mkdir $BAK_DIR
+mkdir -p $BAK_DIR
 mv $DAILY_FRONTEND_DIR* $BAK_DIR
 echo -e "\n----------备份daily-api----------"
 mv $DAILY_API_DIR* $BAK_DIR

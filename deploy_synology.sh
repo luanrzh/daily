@@ -1,4 +1,4 @@
-CODE_DIR="/var/services/homes/luanrzh/Code/github/daily"
+CODE_DIR="/var/services/homes/www/daily"
 CODE_DIR_FE=${CODE_DIR}/daily-frontend
 CODE_DIR_API=${CODE_DIR}/daily-api
 DEPOLY_FRONTEND_DIR="/volume1/web/daily"
@@ -6,12 +6,12 @@ DEPOLY_FRONTEND_DIR="/volume1/web/daily"
 # Maven和NPM的前置处理
 which mvn > /dev/null
 if [ $? -eq 1 ];then
-    MAVEN_HOME="/var/services/homes/luanrzh/Program/apache-maven-3.6.2"
+    MAVEN_HOME="/var/services/homes/www/Program/apache-maven-3.6.2"
     export PATH=${MAVEN_HOME}/bin:${PATH}
 fi
 which npm > /dev/null
 if [ $? -eq 1 ];then
-    NPM_HOME="/var/services/homes/luanrzh/Program/node-v12.14.0-linux-x64"
+    NPM_HOME="/var/services/homes/www/Program/node-v12.14.0-linux-x64"
     export PATH=${NPM_HOME}/bin:${PATH}
 fi
 
