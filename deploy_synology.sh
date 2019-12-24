@@ -30,8 +30,8 @@ mv ${CODE_DIR_FE}/dist $DEPOLY_FRONTEND_DIR
 
 echo -e "\n----------构建部署daily-api----------"
 cd ${CODE_DIR_API}
-sed -i "s/www.dodaily.cn/192.168.1.105/" src/main/resources/application.yml
-${MAVEN_HOME}/bin/mvn install -DskipTests
+# sed -i "s/www.dodaily.cn/192.168.1.105/" src/main/resources/application.yml
+mvn clean package -DskipTests
 mv target/daily-api-0.0.1.jar ${DEPOLY_FRONTEND_DIR}
 
 echo -e "\n----------重启daily-api----------"
