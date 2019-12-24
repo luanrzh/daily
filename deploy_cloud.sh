@@ -12,7 +12,7 @@ cd /root/daily/daily-frontend
 npm run build
 echo -e "\n----------构建daily-api----------"
 cd /root/daily/daily-api
-mvn install -DskipTests
+mvn clean package -DskipTests
 echo -e "\n----------备份daily-front----------"
 mkdir $BAK_DIR
 mv $DAILY_FRONTEND_DIR* $BAK_DIR
