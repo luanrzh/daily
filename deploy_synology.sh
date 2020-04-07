@@ -2,6 +2,7 @@ CODE_DIR="/var/services/homes/www/CodeFree/luanrzh/daily"
 CODE_DIR_FE=${CODE_DIR}/daily-frontend
 CODE_DIR_API=${CODE_DIR}/daily-api
 DEPOLY_FRONTEND_DIR="/volume1/web/daily"
+LOCAL_IP="192.168.1.100"
 
 # Maven和NPM的前置处理
 which mvn > /dev/null
@@ -23,14 +24,14 @@ git pull origin master
 
 echo -e "\n----------构建部署daily-front----------"
 cd ${CODE_DIR_FE}
-sed -i "s/api.dodaily.cn/localhost:8000/" src/api/api.js 
+sed -i "s/api.dodaily.cn/${LOCAL_IP}:8000/" src/api/api.js 
 npm run build
 rm -rf ${DEPOLY_FRONTEND_DIR}
 mv ${CODE_DIR_FE}/dist $DEPOLY_FRONTEND_DIR
 
 echo -e "\n----------构建部署daily-api----------"
 cd ${CODE_DIR_API}
-# sed -i "s/www.dodaily.cn/localhost/" src/main/resources/application.yml
+# sed -i "s/www.dodaily.cn/${LOCAL_IP}/" src/main/resources/application.yml
 mvn clean package -DskipTests
 mv target/daily-api-0.0.1.jar ${DEPOLY_FRONTEND_DIR}
 
