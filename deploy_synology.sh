@@ -1,4 +1,4 @@
-CODE_DIR="/var/services/homes/www/daily"
+CODE_DIR="/var/services/homes/www/CodeFree/luanrzh/daily"
 CODE_DIR_FE=${CODE_DIR}/daily-frontend
 CODE_DIR_API=${CODE_DIR}/daily-api
 DEPOLY_FRONTEND_DIR="/volume1/web/daily"
