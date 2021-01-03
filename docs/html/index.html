@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <script src="js/vue/vue.min.js"></script>
+  <script src="js/element-ui/index.js"></script>
+  <link rel="stylesheet" href="css/element-ui/index.css">
+  <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body>
+  <div id="app-background"></div>
+  <div id="app">
+    <el-container>
+      <el-header>APP Home</el-header>
+      <el-main>
+        <el-row>
+          <el-col :span="4" v-for="production in productions">
+            <el-card class="box-card">
+              <a :href="production.preview_url">
+                <img :src="production.img_url" class="card_image">
+              </a>
+              <br>
+              <span class="card_description"> {{production.id}} </span>
+            </el-card>
+          </el-col>
+        </el-row>
+      </el-main>
+      <el-footer>© 2021 栾睿智</el-footer>
+    </el-container>
+  </div>
+</body>
+<script src="js/index.js"></script>
+
+</html>
